@@ -23,3 +23,5 @@ Route::resource('productos', App\Http\Controllers\ProductoController::class)->mi
 Route::resource('categorias', App\Http\Controllers\CategoriaController::class)->middleware('auth');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/verProductos', [App\Http\Controllers\ProductoController::class, 'fotos'])->name('fotos');
+Route::get('/foto/{ruta}', [App\Http\Controllers\ProductoController::class, 'mostrarFoto']);

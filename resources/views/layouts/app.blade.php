@@ -36,6 +36,10 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('categorias.index') }}">{{ __('Categorias') }}</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('fotos') }}">Ver Productos</a>
+                        </li>
+                        
                        
 
                 

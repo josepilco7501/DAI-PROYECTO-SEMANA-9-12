@@ -12,13 +12,13 @@
                     <div class="card-header">
                         <div style="display: flex; justify-content: space-between; align-items: center;">
 
-                            <span id="card_title">
-                                {{ __('Categoria') }}
+                            <span id="card_title"><h1>
+                                {{ __('Categorias') }}</h1>
                             </span>
 
                              <div class="float-right">
                                 <a href="{{ route('categorias.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
-                                  {{ __('Create New') }}
+                                  {{ __('Agregar nuevo') }}
                                 </a>
                               </div>
                         </div>

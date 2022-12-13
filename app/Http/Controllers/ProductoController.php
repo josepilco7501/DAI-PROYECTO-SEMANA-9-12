@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Producto;
 use App\Models\Categoria;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
+use Intervention\Image\Facades\Image;
 
 /**
  * Class ProductoController
@@ -24,13 +26,21 @@ class ProductoController extends Controller
         return view('producto.index', compact('productos'))
             ->with('i', (request()->input('page', 1) - 1) * $productos->perPage());
     }
-    public function listar()
+
+    public function fotos()
     {
         $productos = Producto::paginate();
 
-        return view('producto.listar', compact('productos'))
+        return view('producto.fotos', compact('productos'))
             ->with('i', (request()->input('page', 1) - 1) * $productos->perPage());
+        
     }
+    public function mostrarFoto(string $ruta)
+    {
+        $file = Storage::disk('fotos')->get($ruta);
+        return Image::make($file)->response();
+    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -44,6 +54,8 @@ class ProductoController extends Controller
         return view('producto.create', compact('producto','categorias'));
     }
 
+
+
     /**
      * Store a newly created resource in storage.
      *
@@ -52,12 +64,29 @@ class ProductoController extends Controller
      */
     public function store(Request $request)
     {
-        request()->validate(Producto::$rules);
+        if ($request->hasFile('imagen')) {
+            $id = $request->categoria_id;
+            $image      = $request->file('imagen');
+            $fileName   = time() . '.' . $image->getClientOriginalExtension();
+            Storage::disk('fotos')->put('/' . $fileName, file_get_contents($image));
+            $producto = new Producto;
+            $producto->categoria_id = $id;
+            $producto->nombre = $request->nombre;
+            $producto->imagen = $fileName;
+            $producto->caracteriticas = $request->caracteriticas;
+            $producto->precio = $request->precio;
+            $producto->save();
+            return redirect()->route('productos.index')
+            ->with('success', 'Producto created successfully.');
+        }
+       
+
+        /*request()->validate(Producto::$rules);
 
         $producto = Producto::create($request->all());
 
         return redirect()->route('productos.index')
-            ->with('success', 'Producto created successfully.');
+            ->with('success', 'Producto created successfully.'); */
     }
 
     /**
@@ -100,7 +129,7 @@ class ProductoController extends Controller
         $producto->update($request->all());
 
         return redirect()->route('productos.index')
-            ->with('success', 'Producto updated successfully');
+            ->with('success', 'Producto actualizado exitosamente');
     }
 
     /**
@@ -113,6 +142,6 @@ class ProductoController extends Controller
         $producto = Producto::find($id)->delete();
 
         return redirect()->route('productos.index')
-            ->with('success', 'Producto deleted successfully');
+            ->with('success', 'Producto eliminado exitosamente');
     }
 }
