@@ -31,13 +31,13 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('productos.index') }}">{{ __('Administrar Productos') }}</a>
+                            <a class="nav-link" href="{{ route('productos.index') }}">{{ __('Administrar Juegos') }}</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('categorias.index') }}">{{ __('Categorias') }}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('fotos') }}">Ver Productos</a>
+                            <a class="nav-link" href="{{ route('fotos') }}">Ver Juegos</a>
                         </li>
                         
                        

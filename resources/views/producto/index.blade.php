@@ -13,7 +13,7 @@
                         <div style="display: flex; justify-content: space-between; align-items: center;">
 
                             <span id="card_title"><h1>
-                                {{ __('Productos') }}</h1>
+                                {{ __('Videojuegos') }}</h1>
                             </span>
 
                              <div class="float-right">
